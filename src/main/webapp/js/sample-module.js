@@ -18,10 +18,11 @@ sampleModule.controller('SampleController', ['$scope', '$http',
       {name: "freddie", id: 2}
     ];
 
-    $http.get('sample-service').success(function (data) {
+    $http({method: 'JSONP', url: 'sample-service.json?callback=JSON_CALLBACK'})
+	//$http.get('sample-service.json')
+			.success(function (data) {
       $scope.serviceData = data;
     });
-
 
   }]);
 
