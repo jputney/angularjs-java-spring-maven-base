@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -39,4 +40,14 @@ public class SampleServiceController {
     logger.info("Response: {}", vals);
     model.addAllAttributes(vals);
   }
+  
+  @RequestMapping(value="sample-service-response-body", produces = {"application/json", "application/javascript"})
+  @ResponseBody
+  public Map sampleServiceResponseBody(Model model) {
+    Map<String, Object> vals = new HashMap<String, Object>();
+    vals.put("Key1", "Val1");
+    vals.put("Key2", "Val2");
+    logger.info("Response: {}", vals);
+    return vals;
+  }  
 }

@@ -12,9 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -24,18 +24,15 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  * @author Jeff Putney <jeffrey.putney@gmail.com>
  */
 public class SampleServiceControllerTest extends AbstractContextControllerTests {
+
   private static final Logger logger = LoggerFactory.getLogger(SampleServiceControllerTest.class);
 	private MockMvc mockMvc;
 
 	@Before
 	public void setup() throws Exception {
-//		this.mockMvc = webAppContextSetup(this.wac).alwaysExpect(status().isOk()).build();
 		this.mockMvc = webAppContextSetup(this.wac).build();
 	}
   
-  public SampleServiceControllerTest() {
-  }
-
   /**
    * Test of home method, of class SampleServiceController.
    */
@@ -50,19 +47,28 @@ public class SampleServiceControllerTest extends AbstractContextControllerTests 
    * Test of home method, of class SampleServiceController.
    */
   @Test
-  public void testIndex() throws Exception {
-    MvcResult result = mockMvc.perform(get("/index.html").accept(MediaType.TEXT_HTML)).andDo(MockMvcResultHandlers.print()).andReturn();
-    //ResultActions andExpect = result.andExpect(MockMvcResultMatchers.content().string("Some Text"));
-    logger.info("Got: {}", result.getResponse().getContentAsString());
+  public void testIndexHtml() throws Exception {
+    mockMvc.perform(get("/index.html")
+            .accept(MediaType.TEXT_HTML))
+            .andDo(print())
+            .andExpect(content().string(containsString("ng-app=\"sampleModule\"")));
   }
 
   /**
-   * Test of simpleService method, of class SampleServiceController.
+   * Test of sampleService method, of class SampleServiceController.
    */
   @Test
-  public void testSimpleService() throws Exception {
+  public void testSampleService() throws Exception {
     mockMvc.perform(get("/sample-service")).andDo(MockMvcResultHandlers.print())
             .andExpect(content().json("{Key1: 'Val1', Key2: 'Val2'}"));
   }
   
+  /**
+   * Test of sampleService method, of class SampleServiceController.
+   */
+  @Test
+  public void testSampleServiceResponseBody() throws Exception {
+    mockMvc.perform(get("/sample-service-response-body")).andDo(MockMvcResultHandlers.print())
+            .andExpect(content().json("{Key1: 'Val1', Key2: 'Val2'}"));
+  }  
 }
