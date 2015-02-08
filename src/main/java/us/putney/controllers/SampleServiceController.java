@@ -25,9 +25,6 @@ public class SampleServiceController {
 
   private static final Logger logger = LoggerFactory.getLogger(SampleServiceController.class);
 
-  public void init() {
-  }
-
   // This teaches DispatcherServlet how to fetch the welcome-page
   @RequestMapping(value="/", produces = "text/html")
   public String home(ModelMap map) {
@@ -35,7 +32,7 @@ public class SampleServiceController {
   }
 
   @RequestMapping(value="sample-service", produces = {"application/json", "application/javascript"})
-  public void simpleService(Model model) {
+  public void sampleService(Model model) {
     Map<String, Object> vals = new HashMap<String, Object>();
     vals.put("Key1", "Val1");
     vals.put("Key2", "Val2");

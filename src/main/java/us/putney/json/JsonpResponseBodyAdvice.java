@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
 
 /**
- *
+ * Configure things so that RequestMappings that use @ResponseBody to return results can be used with jsonp in the same
+ * way that MappingJackson handles jsonp in the MappingJackson2JsonView
  * @author jputney
  */
 @ControllerAdvice
-public class SampleJsonpResponseBodyAdvice extends AbstractJsonpResponseBodyAdvice {
-    public SampleJsonpResponseBodyAdvice() {
-        super("callback");
+public class JsonpResponseBodyAdvice extends AbstractJsonpResponseBodyAdvice {
+    public JsonpResponseBodyAdvice() {
+        super("callback","jsonp");
     }
 }

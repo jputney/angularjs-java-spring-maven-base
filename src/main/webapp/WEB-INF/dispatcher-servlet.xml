@@ -21,7 +21,7 @@
 			<beans:property name="prefix" value="/WEB-INF/views/" />
 			<beans:property name="suffix" value=".jsp" />
 	</beans:bean>-->
-	<bean class="us.putney.controllers.SampleServiceController" init-method="init"/>
+	<bean class="us.putney.controllers.SampleServiceController"/>
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
