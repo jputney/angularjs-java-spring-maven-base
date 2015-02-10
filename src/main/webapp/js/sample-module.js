@@ -1,12 +1,12 @@
-
 var sampleModule = angular.module('sampleModule', []);
 
-sampleModule.controller('SampleController', ['$scope', '$http',
+sampleModule.controller('SampleController', ['$scope', '$http', '$q', 'sample-service',
   // 'sampleFactory',
   function (
           $scope,
-          $http
-          //, sampleFactory
+          $http,
+          $q,
+          sampleService
           ) {
     console.log(document.title);
     console.log(document.URL);
@@ -18,13 +18,22 @@ sampleModule.controller('SampleController', ['$scope', '$http',
       {name: "freddie", id: 2}
     ];
 
-    $http({method: 'JSONP', url: 'sample-service.json?callback=JSON_CALLBACK'})
-	//$http.get('sample-service.json')
-			.success(function (data) {
+    // Have service lookup data on page load
+    sampleService.getData(function (data) {
       $scope.serviceData = data;
     });
 
+    // provide lookupData method to view.
+    $scope.lookupData = function (x) {
+      sampleService.getPromise(x).success(function (val) {
+        console.log(val);
+        $scope.selectedVal = val;
+      });
+    }
+
   }]);
+
+
 
 
 

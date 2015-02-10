@@ -6,7 +6,6 @@
 package us.putney.json;
 
 import java.util.Locale;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -17,15 +16,19 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  */
 public class JsonViewResolver implements ViewResolver {
 
-    MappingJackson2JsonView view = new MappingJackson2JsonView();
+  MappingJackson2JsonView view = new MappingJackson2JsonView();
 
-    public View resolveViewName(String viewName, Locale locale) throws Exception {
+  public JsonViewResolver() {
+    view.setExtractValueFromSingleKeyModel(true);
+  }
+
+  public View resolveViewName(String viewName, Locale locale) throws Exception {
 //        if (! StringUtils.isEmpty(viewName)) {
 //            return null;
 //        }
 
-        view.setPrettyPrint(true);
-        return view;
-    }
+    view.setPrettyPrint(true);
+    return view;
+  }
 
 }

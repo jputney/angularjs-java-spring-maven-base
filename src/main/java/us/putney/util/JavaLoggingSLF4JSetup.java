@@ -11,7 +11,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 /**
  *
- * @author juggler
+ * @author jputney
  */
 public class JavaLoggingSLF4JSetup {
     static {

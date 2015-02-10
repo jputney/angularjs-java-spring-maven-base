@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 /**
  *
- * @author Jeff Putney <jeffrey.putney@gmail.com>
+ * @author jputney
  */
 public class SampleServiceControllerTest extends AbstractContextControllerTests {
 
@@ -71,4 +71,10 @@ public class SampleServiceControllerTest extends AbstractContextControllerTests 
     mockMvc.perform(get("/sample-service-response-body")).andDo(MockMvcResultHandlers.print())
             .andExpect(content().json("{Key1: 'Val1', Key2: 'Val2'}"));
   }  
+  
+  @Test
+  public void getData() {
+    logger.debug("Power: {}", SampleServiceController.getPower());
+    logger.debug("Hero: {}", SampleServiceController.getHero("Grrr"));    
+  }
 }
